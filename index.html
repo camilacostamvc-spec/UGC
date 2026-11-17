@@ -83,10 +83,10 @@ h2.titulo .cursiva{position:absolute;font-size:1.5em;line-height:1;transform:rot
 .kicker::after{content:"";display:block;width:44px;height:2px;background:var(--preto);margin-top:12px}
 .nichos-linha{margin-top:22px;font-size:15px;color:var(--cinza)}
 .nichos-linha strong{color:var(--preto);font-weight:600}
-.nome{position:relative;margin-top:8px;font-family:Anton,Impact,sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(60px,8.6vw,124px);line-height:.92;letter-spacing:.005em}
+.nome{position:relative;display:table;margin-top:8px;font-family:Anton,Impact,sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(60px,8.6vw,124px);line-height:.92;letter-spacing:.005em}
 .nome .p1{color:var(--azul);display:block}
 .nome .p2{color:var(--preto);display:block}
-.assinatura{position:absolute;right:4%;bottom:-.32em;font-size:clamp(52px,6vw,88px);color:var(--preto);transform:rotate(-9deg);pointer-events:none;white-space:nowrap}
+.assinatura{position:absolute;right:-1.85em;bottom:-.22em;font-size:clamp(52px,6vw,88px);color:var(--preto);transform:rotate(-9deg);pointer-events:none;white-space:nowrap}
 .frase{margin-top:34px;font-size:16px;max-width:460px;font-weight:500}
 .provas{display:flex;gap:32px;margin:26px 0 30px;flex-wrap:wrap}
 .prova .n{font-family:Anton,Impact,sans-serif;font-size:32px;line-height:1;color:var(--preto)}
@@ -603,7 +603,7 @@ function montarCapa() {
   $('#capaFundo').textContent = p1;
   $('#rodapeNome').textContent = DADOS.nome;
   $('#nome').innerHTML = '<span class="p1">' + esc(p1) + '</span><span class="p2">' + esc(p2) + '</span>' +
-    '<span class="assinatura cursiva" aria-hidden="true">' + esc(p1 + ' ' + (partes[partes.length - 1] || '')) + '</span>';
+    '<span class="assinatura cursiva" aria-hidden="true">' + esc(p1) + '</span>';
   $('#nichosLinha').innerHTML = 'UGC creator de <strong>' + esc(DADOS.nichosResumo) + '</strong>';
   $('#frase').textContent = DADOS.frase;
   const provas = (DADOS.provas || []).map(p =>
