@@ -198,6 +198,21 @@ h2.titulo .cursiva{position:relative;display:inline-block;margin-left:.18em;font
 .lista-marcas ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px 28px;margin-top:14px}
 .lista-marcas li{font-family:Anton,Impact,sans-serif;font-size:28px;text-transform:uppercase;color:#9C8E80}
 
+/* ---------- serviços ---------- */
+.servicos{background:var(--verde);color:var(--claro);padding:80px 0}
+.servicos .etq{color:var(--mostarda)}
+.servicos h2{color:var(--claro);margin-top:12px}
+.servicos h2 .cursiva{color:var(--mostarda)}
+.serv-sub{margin-top:14px;font-size:15px;max-width:520px;color:#E4DCCF}
+.serv-grade{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}
+.serv{background:var(--creme);color:var(--marrom);border:1.5px solid var(--marrom);padding:26px 24px 24px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.serv .num{font-family:Anton,Impact,sans-serif;font-size:34px;line-height:1;color:var(--terra)}
+.serv:nth-child(3n+2) .num{color:var(--vinho)}
+.serv:nth-child(3n) .num{color:var(--oliva)}
+.serv h3{font-family:Anton,Impact,sans-serif;font-weight:400;font-size:22px;text-transform:uppercase;letter-spacing:.01em}
+.serv p{font-size:15px;color:#4A3B30}
+.serv .btn{margin-top:auto;align-self:flex-start;min-height:42px;padding:0 18px}
+
 /* ---------- contato ---------- */
 .contato{padding:96px 0 72px}
 .contato .wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:56px}
@@ -252,6 +267,7 @@ body.travado{overflow:hidden}
   .depo{border-left:0;border-top:1px solid #4A3A2F;padding:28px 0}
   .depo:first-child{border-top:0}
   .contato .wrap{grid-template-columns:1fr;gap:48px}
+  .serv-grade{grid-template-columns:1fr 1fr}
 }
 @media (max-width:760px){
   .capa-in{grid-template-columns:1fr;gap:28px;padding-top:36px;min-height:0}
@@ -277,6 +293,8 @@ body.travado{overflow:hidden}
   .aba{padding:10px 14px}
   .nicho-grade{grid-template-columns:1fr 1fr;gap:12px}
   form.orc{grid-template-columns:1fr}
+  .serv-grade{grid-template-columns:1fr}
+  .servicos{padding:56px 0}
   .trilho span{font-size:18px}
   .lista-marcas li{font-size:22px}
   footer .wrap{padding-right:72px}
@@ -302,12 +320,13 @@ body.travado{overflow:hidden}
     <nav class="nav-lado esq" aria-label="Menu">
       <a class="lk" href="#sobre" data-t="nav_sobre">Sobre mim</a>
       <a class="lk" href="#destaques" data-t="nav_dest">Destaques</a>
+      <a class="lk" href="#nichos" data-t="nav_nichos">Nichos</a>
     </nav>
     <a class="logo" href="#inicio" id="logo">Camila Costa</a>
     <nav class="nav-lado dir" aria-label="Menu">
       <span class="idioma" role="group" aria-label="Idioma / Language"><button type="button" data-lang="pt">PT</button><button type="button" data-lang="en">EN</button></span>
-      <a class="lk" href="#nichos" data-t="nav_nichos">Nichos</a>
       <a class="lk" href="#elogios" data-t="nav_elogios">O que as marcas falam</a>
+      <a class="lk" href="#servicos" data-t="nav_serv">Serviços</a>
       <a class="lk" href="#contato" data-t="nav_contato">Contato</a>
     </nav>
     <div class="nav-mob">
@@ -320,6 +339,7 @@ body.travado{overflow:hidden}
     <a href="#destaques" data-t="nav_dest">Destaques</a>
     <a href="#nichos" data-t="nav_nichos">Nichos</a>
     <a href="#elogios" data-t="nav_elogios">O que as marcas falam</a>
+    <a href="#servicos" data-t="nav_serv">Serviços</a>
     <a href="#contato" data-t="nav_contato">Contato</a>
   </nav>
 </header>
@@ -406,6 +426,16 @@ body.travado{overflow:hidden}
     </div>
   </section>
 
+  <!-- SERVIÇOS -->
+  <section class="servicos" id="servicos">
+    <div class="wrap">
+      <p class="etq" data-t="serv_kicker">O que eu faço por você</p>
+      <h2 class="titulo"><span data-t="serv_titulo">Como eu te ajudo</span> <span class="cursiva" data-t="serv_cursiva">serviços</span></h2>
+      <p class="serv-sub" data-t="serv_sub">Do vídeo único ao pacote do mês. Todos os botões levam direto pro meu WhatsApp.</p>
+      <div class="serv-grade" id="servGrade"></div>
+    </div>
+  </section>
+
   <!-- 6. CONTATO -->
   <section class="contato" id="contato">
     <div class="wrap">
@@ -447,7 +477,10 @@ body.travado{overflow:hidden}
 const TEXTOS = {
   pt: {
     barra: 'UGC creator · vídeo que vende',
-    nav_sobre: 'Sobre mim', nav_dest: 'Destaques', nav_nichos: 'Nichos', nav_elogios: 'O que as marcas falam', nav_contato: 'Contato',
+    nav_sobre: 'Sobre mim', nav_dest: 'Destaques', nav_nichos: 'Nichos', nav_elogios: 'O que as marcas falam', nav_contato: 'Contato', nav_serv: 'Serviços',
+    serv_kicker: 'O que eu faço por você', serv_titulo: 'Como eu te ajudo', serv_cursiva: 'serviços',
+    serv_sub: 'Do vídeo único ao pacote do mês. Todos os botões levam direto pro meu WhatsApp.',
+    serv_btn: 'Solicitar proposta', serv_msg: 'Oi, {nome}! Vi seu portfólio e quero uma proposta de: {servico}.',
     menu: 'Menu', fechar_menu: 'Fechar',
     kicker: 'UGC creator<br>vídeo que vende<br>pra sua marca',
     creator_de: 'UGC creator de',
@@ -475,7 +508,10 @@ const TEXTOS = {
   },
   en: {
     barra: 'UGC creator · videos that sell',
-    nav_sobre: 'About me', nav_dest: 'Highlights', nav_nichos: 'Niches', nav_elogios: 'What brands say', nav_contato: 'Contact',
+    nav_sobre: 'About me', nav_dest: 'Highlights', nav_nichos: 'Niches', nav_elogios: 'What brands say', nav_contato: 'Contact', nav_serv: 'Services',
+    serv_kicker: 'What I do for you', serv_titulo: 'How I can help', serv_cursiva: 'services',
+    serv_sub: 'From a single video to a monthly package. Every button takes you straight to my WhatsApp.',
+    serv_btn: 'Request a quote', serv_msg: "Hi, {nome}! I saw your portfolio and I'd like a quote for: {servico}.",
     menu: 'Menu', fechar_menu: 'Close',
     kicker: 'UGC creator<br>videos that sell<br>for your brand',
     creator_de: 'UGC creator for',
@@ -556,11 +592,11 @@ function foto(caixa, src, dica, alt) {
 /* ---------- links de contato ---------- */
 function primeiroNome() { return (DADOS.nome || '').trim().split(/\s+/)[0] || ''; }
 function mensagemZap() { return t('zap_msg').replace('{nome}', primeiroNome()); }
-function linkZap() {
+function linkZap(msg) {
   let n = String(DADOS.whatsapp || '').replace(/\D/g, '');
   if (!n) return '';
   if (n.length <= 11) n = '55' + n;
-  return 'https://wa.me/' + n + '?text=' + encodeURIComponent(mensagemZap());
+  return 'https://wa.me/' + n + '?text=' + encodeURIComponent(msg || mensagemZap());
 }
 function linkEmail() {
   if (!DADOS.email) return '';
@@ -813,6 +849,18 @@ function montarElogios() {
     '<div class="marca">' + esc(e.marca) + '</div><div class="det">' + esc(tr(e, 'detalhe')) + '</div></div>').join('');
 }
 
+function montarServicos() {
+  $('#servGrade').innerHTML = (DADOS.servicos || []).map((sv, i) => {
+    const titulo = tr(sv, 'titulo');
+    const msg = t('serv_msg').replace('{nome}', primeiroNome()).replace('{servico}', titulo);
+    const zap = linkZap(msg);
+    const href = zap || linkEmail() || '#contato';
+    return '<article class="serv"><span class="num">' + String(i + 1).padStart(2, '0') + '</span>' +
+      '<h3>' + esc(titulo) + '</h3><p>' + esc(tr(sv, 'texto')) + '</p>' +
+      '<a class="btn btn-escuro" href="' + esc(href) + '"' + (zap ? ' target="_blank" rel="noopener"' : '') + '>' + (zap ? ICONE.zap : '') + esc(t('serv_btn')) + '</a></article>';
+  }).join('');
+}
+
 function montarContato() {
   const fixo = $('#zapFixo');
   fixo.href = linkZap() || linkEmail() || '#contato';
@@ -879,6 +927,7 @@ function montarTudo() {
   montarDestaques();
   montarNichos();
   montarElogios();
+  montarServicos();
   montarContato();
 }
 
@@ -1009,6 +1058,29 @@ const DADOS = {
   // Marcas que você já atendeu. Vazio = a faixa e a lista de marcas não aparecem.
   // Ex.: ["Marca X", { nome: "Marca Y", logo: "midia/logos/marca-y.png" }]
   marcas: [],
+
+  // Seus serviços (seção "Como eu te ajudo"). Apague os que você não oferece
+  // ou acrescente outros no mesmo formato. O botão abre o WhatsApp já citando o serviço.
+  servicos: [
+    { titulo: "Vídeo UGC", titulo_en: "UGC video",
+      texto: "Vídeo vertical no estilo depoimento real: roteiro meu, gravação e edição prontos pra postar.",
+      texto_en: "Vertical video in a real-testimonial style: my own script, filming and editing, ready to post." },
+    { titulo: "Vídeo pra anúncio", titulo_en: "Ad video",
+      texto: "Versões com ganchos diferentes e a duração certa pra rodar no Meta Ads e no TikTok Ads.",
+      texto_en: "Versions with different hooks and the right length to run on Meta Ads and TikTok Ads." },
+    { titulo: "Unboxing e review", titulo_en: "Unboxing & review",
+      texto: "Primeiras impressões sinceras, valorizando a embalagem, a textura e os detalhes do produto.",
+      texto_en: "Honest first impressions that highlight the packaging, texture and details of the product." },
+    { titulo: "Tutorial", titulo_en: "Tutorial",
+      texto: "Passo a passo de uso que tira as dúvidas do cliente e quebra objeções na hora da compra.",
+      texto_en: "Step-by-step how-to that answers customer questions and breaks objections at checkout." },
+    { titulo: "Fotos do produto", titulo_en: "Product photos",
+      texto: "Fotos lifestyle com luz natural, prontas pra feed, site e marketplace.",
+      texto_en: "Lifestyle photos with natural light, ready for your feed, website and marketplace." },
+    { titulo: "Pacote mensal", titulo_en: "Monthly package",
+      texto: "Uma leva de conteúdos por mês, com planejamento, roteiros e entregas programadas.",
+      texto_en: "A batch of content every month, with planning, scripts and scheduled deliveries." }
+  ],
 
   // Quatro dúvidas rápidas do contato. Preencha "resposta" com a SUA regra.
   duvidas: [
