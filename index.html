@@ -219,13 +219,17 @@ h2.titulo .cursiva{position:relative;display:inline-block;margin-left:.18em;font
 .contato h2{color:var(--verde);font-size:clamp(40px,5vw,56px)}
 .contato h2 .cursiva{position:absolute;color:var(--terra);left:0;top:-.95em;font-size:.55em;margin:0}
 .chamado{font-size:16px;margin:18px 0 26px;max-width:440px}
-form.orc{margin-top:36px;display:grid;grid-template-columns:1fr 1fr;gap:18px 20px;border-top:1.5px solid var(--marrom);padding-top:24px}
+form.orc{margin-top:36px;display:grid;grid-template-columns:1fr 1fr;gap:20px 24px;background:var(--bege);border:1.5px solid var(--marrom);padding:30px 28px 28px}
+form.orc .orc-titulo{font-family:Anton,Impact,sans-serif;font-weight:400;font-size:28px;line-height:1;text-transform:uppercase;color:var(--verde)}
+form.orc .orc-sub{margin-top:8px;font-size:15px;color:var(--cinza)}
+form.orc input::placeholder{color:#9A8B7D}
+form.orc button[type=submit]{width:100%;margin-top:6px}
 form.orc .cheio{grid-column:1/-1}
 form.orc label{display:block;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
 form.orc input{display:block;width:100%;margin-top:6px;border:0;border-bottom:1.5px solid var(--marrom);background:transparent;padding:10px 0;font:inherit;font-size:15px;color:var(--marrom);border-radius:0}
 form.orc input:focus{outline:none;border-bottom-color:var(--terra)}
 form.orc .esconde{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-.form-msg{margin-top:36px;padding:24px;border:1.5px solid var(--marrom);font-family:Anton,Impact,sans-serif;font-size:28px;text-transform:uppercase;color:var(--verde)}
+.form-msg{margin-top:36px;padding:24px;border:1.5px solid var(--marrom);background:var(--bege);font-family:Anton,Impact,sans-serif;font-size:28px;text-transform:uppercase;color:var(--verde)}
 .form-erro{grid-column:1/-1;font-size:14px;display:none}
 .form-erro.on{display:block}
 .form-erro .btn{margin-top:10px}
@@ -292,7 +296,7 @@ body.travado{overflow:hidden}
   .abas::-webkit-scrollbar{display:none}
   .aba{padding:10px 14px}
   .nicho-grade{grid-template-columns:1fr 1fr;gap:12px}
-  form.orc{grid-template-columns:1fr}
+  form.orc{grid-template-columns:1fr;padding:24px 18px}
   .serv-grade{grid-template-columns:1fr}
   .servicos{padding:56px 0}
   .trilho span{font-size:18px}
@@ -502,7 +506,8 @@ const TEXTOS = {
     zap_msg: 'Oi, {nome}! Vi seu portfólio e quero conversar sobre vídeos pra minha marca.',
     email_assunto: 'Vídeos UGC pra minha marca',
     form_titulo: 'Pedir orçamento', form_nome: 'Seu nome', form_empresa: 'Empresa', form_produto: 'Produto', form_prazo: 'Prazo', form_zap: 'WhatsApp',
-    form_produto_ph: 'o que vamos divulgar?', form_prazo_ph: 'pra quando?', form_enviando: 'Enviando...',
+    form_produto_ph: 'O que vamos divulgar?', form_prazo_ph: 'Ex.: até 20/12', form_enviando: 'Enviando...',
+    form_sub: 'Cinco respostas rápidas e eu te chamo no WhatsApp.', form_nome_ph: 'Como posso te chamar?', form_empresa_ph: 'Nome da marca', form_enviar: 'Enviar pedido',
     form_ok: 'Recebi! Te chamo em breve.', form_erro: 'Não consegui enviar agora. Me chama direto:',
     assistir: 'Assistir', titulo_pagina: 'Camila Costa · portfólio UGC'
   },
@@ -533,7 +538,8 @@ const TEXTOS = {
     zap_msg: "Hi, {nome}! I saw your portfolio and I'd like to talk about videos for my brand.",
     email_assunto: 'UGC videos for my brand',
     form_titulo: 'Get a quote', form_nome: 'Your name', form_empresa: 'Company', form_produto: 'Product', form_prazo: 'Deadline', form_zap: 'WhatsApp',
-    form_produto_ph: 'what are we promoting?', form_prazo_ph: 'when do you need it?', form_enviando: 'Sending...',
+    form_produto_ph: 'What are we promoting?', form_prazo_ph: 'E.g.: by Dec 20', form_enviando: 'Sending...',
+    form_sub: "Five quick answers and I'll message you on WhatsApp.", form_nome_ph: 'What should I call you?', form_empresa_ph: 'Brand name', form_enviar: 'Send request',
     form_ok: "Got it! I'll get back to you soon.", form_erro: "I couldn't send it right now. Message me directly:",
     assistir: 'Watch', titulo_pagina: 'Camila Costa · UGC portfolio'
   }
@@ -885,14 +891,14 @@ function montarFormulario() {
   if (!DADOS.formspree) { area.innerHTML = ''; return; }
   area.innerHTML =
     '<form class="orc" id="orc" novalidate>' +
-    '<p class="etq cheio">' + esc(t('form_titulo')) + '</p>' +
-    '<label>' + esc(t('form_nome')) + '<input name="nome" required autocomplete="name"></label>' +
-    '<label>' + esc(t('form_empresa')) + '<input name="empresa" required autocomplete="organization"></label>' +
+    '<div class="cheio"><p class="orc-titulo">' + esc(t('form_titulo')) + '</p><p class="orc-sub">' + esc(t('form_sub')) + '</p></div>' +
+    '<label>' + esc(t('form_nome')) + '<input name="nome" required autocomplete="name" placeholder="' + esc(t('form_nome_ph')) + '"></label>' +
+    '<label>' + esc(t('form_empresa')) + '<input name="empresa" required autocomplete="organization" placeholder="' + esc(t('form_empresa_ph')) + '"></label>' +
     '<label>' + esc(t('form_produto')) + '<input name="produto" required placeholder="' + esc(t('form_produto_ph')) + '"></label>' +
     '<label>' + esc(t('form_prazo')) + '<input name="prazo" required placeholder="' + esc(t('form_prazo_ph')) + '"></label>' +
-    '<label class="cheio">' + esc(t('form_zap')) + '<input name="whatsapp" type="tel" required autocomplete="tel"></label>' +
+    '<label class="cheio">' + esc(t('form_zap')) + '<input name="whatsapp" type="tel" required autocomplete="tel" placeholder="(00) 00000-0000"></label>' +
     '<input class="esconde" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">' +
-    '<div class="cheio"><button class="btn btn-escuro" type="submit">' + esc(t('form_titulo')) + '</button></div>' +
+    '<div class="cheio"><button class="btn btn-verde" type="submit">' + esc(t('form_enviar')) + '</button></div>' +
     '<div class="form-erro" id="formErro">' + esc(t('form_erro')) + '<br>' + botaoContatoPrincipal('btn-verde') + '</div>' +
     '</form>';
   const f = $('#orc');
@@ -903,7 +909,7 @@ function montarFormulario() {
     botao.disabled = true; botao.textContent = t('form_enviando');
     fetch(DADOS.formspree, { method: 'POST', body: new FormData(f), headers: { 'Accept': 'application/json' } })
       .then(r => { if (!r.ok) throw new Error('erro'); area.innerHTML = '<p class="form-msg">' + esc(t('form_ok')) + '</p>'; })
-      .catch(() => { botao.disabled = false; botao.textContent = t('form_titulo'); $('#formErro').classList.add('on'); });
+      .catch(() => { botao.disabled = false; botao.textContent = t('form_enviar'); $('#formErro').classList.add('on'); });
   });
 }
 
