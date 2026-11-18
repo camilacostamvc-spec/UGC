@@ -215,7 +215,8 @@ h2.titulo .cursiva{position:relative;display:inline-block;margin-left:.18em;font
 
 /* ---------- contato ---------- */
 .contato{padding:96px 0 72px}
-.contato .wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:56px}
+.contato .wrap{display:grid;grid-template-columns:1fr;gap:56px}
+.contato .wrap > div:first-child{max-width:760px}
 .contato h2{color:var(--verde);font-size:clamp(40px,5vw,56px)}
 .contato h2 .cursiva{position:absolute;color:var(--terra);left:0;top:-.95em;font-size:.55em;margin:0}
 .chamado{font-size:16px;margin:18px 0 26px;max-width:440px}
@@ -233,8 +234,9 @@ form.orc .esconde{position:absolute;left:-9999px;width:1px;height:1px;overflow:h
 .form-erro{grid-column:1/-1;font-size:14px;display:none}
 .form-erro.on{display:block}
 .form-erro .btn{margin-top:10px}
-.duvidas h3{font-family:Anton,Impact,sans-serif;font-weight:400;font-size:26px;text-transform:uppercase;margin-bottom:8px}
-.duvida{border-top:1.5px solid var(--marrom);padding:18px 0}
+.faq{display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
+.faq:empty{display:none}
+.duvida{border-top:1.5px solid var(--marrom);padding:18px 0 0}
 .duvida h4{font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase}
 .duvida p{margin-top:8px;font-size:15px}
 
@@ -270,7 +272,8 @@ body.travado{overflow:hidden}
   .depos{grid-template-columns:1fr}
   .depo{border-left:0;border-top:1px solid #4A3A2F;padding:28px 0}
   .depo:first-child{border-top:0}
-  .contato .wrap{grid-template-columns:1fr;gap:48px}
+  .contato .wrap{gap:48px}
+  .faq{grid-template-columns:1fr 1fr}
   .serv-grade{grid-template-columns:1fr 1fr}
 }
 @media (max-width:760px){
@@ -297,6 +300,8 @@ body.travado{overflow:hidden}
   .aba{padding:10px 14px}
   .nicho-grade{grid-template-columns:1fr 1fr;gap:12px}
   form.orc{grid-template-columns:1fr;padding:24px 18px}
+  .faq{grid-template-columns:1fr;gap:0}
+  .duvida{padding-bottom:18px}
   .serv-grade{grid-template-columns:1fr}
   .servicos{padding:56px 0}
   .trilho span{font-size:18px}
@@ -449,10 +454,7 @@ body.travado{overflow:hidden}
         <div class="btns" id="contatoBtns"></div>
         <div id="formArea"></div>
       </div>
-      <div class="duvidas">
-        <h3 data-t="duvidas_titulo">Dúvidas rápidas</h3>
-        <div id="duvidas"></div>
-      </div>
+      <div class="faq" id="duvidas"></div>
     </div>
   </section>
 </main>
@@ -501,7 +503,6 @@ const TEXTOS = {
     contato_titulo: 'Bora trabalhar?', contato_cursiva: 'contato',
     chamado: 'Bora trabalhar juntas? Me conta do seu produto que eu te mando a ideia de roteiro e o orçamento.',
     btn_zap: 'Chamar no WhatsApp', btn_email: 'Mandar e-mail',
-    duvidas_titulo: 'Dúvidas rápidas',
     rodape: 'UGC creator · aluno da Rafa Chagas',
     zap_msg: 'Oi, {nome}! Vi seu portfólio e quero conversar sobre vídeos pra minha marca.',
     email_assunto: 'Vídeos UGC pra minha marca',
@@ -533,7 +534,6 @@ const TEXTOS = {
     contato_titulo: "Let's work together?", contato_cursiva: 'contact',
     chamado: "Tell me about your product and I'll send you a script idea and a quote.",
     btn_zap: 'Message me on WhatsApp', btn_email: 'Send an e-mail',
-    duvidas_titulo: 'Quick questions',
     rodape: 'UGC creator · Rafa Chagas student',
     zap_msg: "Hi, {nome}! I saw your portfolio and I'd like to talk about videos for my brand.",
     email_assunto: 'UGC videos for my brand',
@@ -878,10 +878,9 @@ function montarContato() {
   if (ig) btns += '<a class="btn btn-contorno" href="' + esc(ig) + '" target="_blank" rel="noopener">' + ICONE.insta + 'Instagram</a>';
   $('#contatoBtns').innerHTML = btns;
 
-  $('#duvidas').innerHTML = (DADOS.duvidas || []).map(d => {
-    const resp = tr(d, 'resposta');
-    return '<div class="duvida"><h4>' + esc(tr(d, 'pergunta')) + '</h4><p>' + (resp ? esc(resp) : lacunaTxt(d.dica || 'escreva sua resposta')) + '</p></div>';
-  }).join('');
+  $('#duvidas').innerHTML = (DADOS.duvidas || []).filter(d => tr(d, 'resposta')).map(d =>
+    '<div class="duvida"><h4>' + esc(tr(d, 'pergunta')) + '</h4><p>' + esc(tr(d, 'resposta')) + '</p></div>'
+  ).join('');
 
   montarFormulario();
 }
@@ -1091,13 +1090,16 @@ const DADOS = {
   // Quatro dúvidas rápidas do contato. Preencha "resposta" com a SUA regra.
   duvidas: [
     { pergunta: "Onde posso usar o conteúdo?", pergunta_en: "Where can I use the content?",
-      resposta: "", resposta_en: "", dica: "Ex.: nas redes da marca e em anúncios pagos (Meta e TikTok)" },
+      resposta: "Nas redes sociais, no site e em anúncios pagos da marca. Os canais ficam combinados no orçamento.",
+      resposta_en: "On the brand's social media, website and paid ads. Channels are agreed in the quote." },
     { pergunta: "Por quanto tempo?", pergunta_en: "For how long?",
-      resposta: "", resposta_en: "", dica: "Ex.: 3 meses de uso em anúncio, com renovação à parte" },
+      resposta: "O uso padrão em anúncio é de 3 meses. Dá pra renovar ou contratar um período maior.",
+      resposta_en: "Standard ad usage is 3 months. You can renew or book a longer period." },
     { pergunta: "Tem exclusividade?", pergunta_en: "Is there exclusivity?",
-      resposta: "", resposta_en: "", dica: "Ex.: sem exclusividade; por nicho, combinamos à parte" },
+      resposta: "Não é padrão. Se a marca quiser, combinamos exclusividade de nicho por um período, com valor à parte.",
+      resposta_en: "Not by default. If the brand wants it, we can agree on niche exclusivity for a period, priced separately." },
     { pergunta: "Qual o prazo?", pergunta_en: "What's the turnaround time?",
-      resposta: "Entrego em até 7 dias.", resposta_en: "I deliver within 7 days.", dica: "" }
+      resposta: "Entrego em até 7 dias.", resposta_en: "I deliver within 7 days." }
   ]
 };
 
