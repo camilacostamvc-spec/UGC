@@ -1032,8 +1032,8 @@ const DADOS = {
   // titulo | nicho | formato: ADS, review, unboxing, tutorial ou nativo
   // video: arquivo .mp4 vertical | capa: imagem opcional | res: resultado real (ex.: "116 vendas")
   destaques: [
-    { titulo: "", titulo_en: "", nicho: "", nicho_en: "", formato: "", video: "midia/destaques/1.mp4", capa: "", res: "", res_en: "" },
-    { titulo: "", titulo_en: "", nicho: "", nicho_en: "", formato: "", video: "midia/destaques/2.mp4", capa: "", res: "", res_en: "" },
+    { titulo: "Clear Detox Diário: cabelo pós-treino", titulo_en: "Clear Daily Detox: post-workout hair", nicho: "Beleza", nicho_en: "Beauty", formato: "review · vídeo conceito", video: "midia/destaques/1.mp4", capa: "midia/destaques/1.jpg", res: "", res_en: "" },
+    { titulo: "Bold Doce de Leite: o lanche das 3 da tarde", titulo_en: "Bold Dulce de Leche: the 3 p.m. snack", nicho: "Fitness & Saúde", nicho_en: "Fitness & Health", formato: "review · vídeo conceito", video: "midia/destaques/2.mp4", capa: "midia/destaques/2.jpg", res: "", res_en: "" },
     { titulo: "", titulo_en: "", nicho: "", nicho_en: "", formato: "", video: "midia/destaques/3.mp4", capa: "", res: "", res_en: "" }
   ],
 
@@ -1042,13 +1042,15 @@ const DADOS = {
   // Link de uma aba pra mandar nas plataformas: seusite/?c=PASTA (ex.: ?c=beleza). Também aceita ?c=skincare.
   nichos: [
     { nome: "Beleza",          nome_en: "Beauty",           pasta: "beleza",
-      inclui: ["Beleza", "Skincare", "Maquiagem", "Cabelo"], inclui_en: ["Beauty", "Skincare", "Makeup", "Hair"], videos: vids("beleza") },
+      inclui: ["Beleza", "Skincare", "Maquiagem", "Cabelo"], inclui_en: ["Beauty", "Skincare", "Makeup", "Hair"],
+      videos: [{ titulo: "Clear Detox Diário", video: "midia/destaques/1.mp4", capa: "midia/destaques/1.jpg" }].concat(vids("beleza").slice(1)) },
     { nome: "Moda",            nome_en: "Fashion",          pasta: "moda",
       inclui: ["Roupas", "Acessórios", "Óculos"],            inclui_en: ["Clothing", "Accessories", "Eyewear"], videos: vids("moda") },
     { nome: "Casa & Comida",   nome_en: "Home & Food",      pasta: "casa-e-comida",
       inclui: ["Casa e decoração", "Comida"],                inclui_en: ["Home & decor", "Food"], videos: vids("casa-e-comida") },
     { nome: "Fitness & Saúde", nome_en: "Fitness & Health", pasta: "fitness-e-saude",
-      inclui: ["Fitness", "Suplementos"],                    inclui_en: ["Fitness", "Supplements"], videos: vids("fitness-e-saude") },
+      inclui: ["Fitness", "Suplementos"],                    inclui_en: ["Fitness", "Supplements"],
+      videos: [{ titulo: "Bold Doce de Leite", video: "midia/destaques/2.mp4", capa: "midia/destaques/2.jpg" }].concat(vids("fitness-e-saude").slice(1)) },
     { nome: "Lifestyle",       nome_en: "Lifestyle",        pasta: "lifestyle",
       inclui: ["Maternidade", "Viagem"],                     inclui_en: ["Motherhood", "Travel"], videos: vids("lifestyle") },
     { nome: "Tech & Carros",   nome_en: "Tech & Cars",      pasta: "tech-e-carros",
